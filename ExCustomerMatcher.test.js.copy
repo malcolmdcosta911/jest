@@ -1,0 +1,18 @@
+function toStartWith(str, subString) {
+  return {
+    pass: str.startsWith(subString),
+    message: () => `string doesnt start with substring "${subString}"`,
+  };
+}
+
+expect.extend({ toStartWith });
+
+test("str starts with substring", () => {
+  expect("car is today").toStartWith("car");
+  expect("car is today").toStartWith("c");
+  expect("car is today").toStartWith("car ");
+});
+
+test("str doesnt start  with substring", () => {
+  expect("car is today").not.toStartWith("bike");
+});

@@ -1,0 +1,67 @@
+it("Add nos", () => {
+  expect(2 * (1 + 1)).toBe(4);
+});
+
+it("no assertions", () => {
+  const num = 10;
+  expect(num).toBeGreaterThan(4);
+  expect(num).toBeLessThan(11);
+  //expect(num).not.toBe(NaN);
+  expect(num).not.toBeNaN();
+
+  //nt sure
+  expect(num).toBeCloseTo(9.99, 0.005);
+});
+
+it("comp objs", () => {
+  expect({ a: 1, b: 2 }).toEqual({ b: 2, a: 1 });
+  //expect({ a: 1, b: 2 }).toEqual({ c: 2, a: 1 }); //fails
+  //expect([1, 2]).toEqual([2, 1]); //fails order is imp
+});
+
+test("check true or false", () => {
+  expect(1 < 2).toBeTruthy(); //if wrong will testing will break at this expect
+  expect(1 > 2).toBeFalsy();
+  expect(null).toBeFalsy();
+  expect("").toBeFalsy();
+  expect(0).toBeFalsy();
+  expect(undefined).toBeFalsy();
+});
+
+it("arr len", () => {
+  expect([]).toHaveLength(0);
+});
+
+it("str match witj regex", () => {
+  expect("str match").toMatch(/str/);
+  expect("str match").toMatch(/ /);
+  expect("str match").toMatch(/ match/);
+  expect("str match").toMatch(/ ma/);
+  expect("str match").toMatch(/h/);
+});
+
+it("throw an err", () => {
+  const msg = "throw custom err";
+  const err = new Error(msg);
+  expect(() => {
+    throw err;
+  }).toThrow(msg); //toThrow expects a func
+});
+
+function arrSum(arr) {
+  const initialVal = 0;
+  return arr.reduce((prev, curr) => prev + curr, initialVal);
+}
+
+it("sums all elements", () => {
+  expect(arrSum([1, 0, 4])).toBe(5);
+});
+
+it("return empty for empty arr", () => {
+  expect(arrSum([])).toBe(0);
+});
+
+it("return single ele for single ele arr", () => {
+  expect(arrSum([1])).toBe(1);
+});
+

@@ -1,0 +1,17 @@
+//demo
+
+const holdValue = (arr, val) => ({
+  pass: arr.includes(val),
+  message: () => `expected to contain ${val}`,
+});
+
+expect.extend({ holdValue });
+
+it("arr includes given val", () => {
+  expect([1, 3]).holdValue(3);
+  //   expect([1, 3]).holdValue(6);
+});
+
+it("arr does nt include given val", () => {
+  expect([1, 3]).not.holdValue(5);
+});

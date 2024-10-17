@@ -1,0 +1,18 @@
+const multiply = require("./multiply");
+
+
+test("multiplies 5 * 2 to equal 10", () => {
+  expect(multiply(5, 2)).toBe(10);
+});
+
+test("multiplies 0 * 2 to equal 0", () => {
+  expect(multiply(0, 2)).toBe(0);
+});
+
+test("multiplies NaN * 2 to equal NaN", () => {
+  expect(multiply(NaN, 2)).toBe(NaN);
+});
+
+test("multiplies string * 2 to equal NaN", () => {
+  expect(multiply("string", 2)).toBe(NaN);
+});

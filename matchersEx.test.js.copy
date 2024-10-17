@@ -1,0 +1,51 @@
+const arr = [1, 3, 2];
+
+describe("matchersEx test suite", () => {
+  test("array contains specific values", () => {
+    expect(arr).toContain(1);
+    expect(arr).toContain(2);
+    expect(arr).toContain(3);
+    // expect(arr).toEqual([1, 2, 3]); //checks order of elements to
+  });
+
+  test("array contains atleast one of specific values", () => {
+    expect(arr).toContain(1);
+  });
+
+  test("array contains no duplicates", () => {
+    expect(new Set(arr).size).toEqual(arr.length);
+  });
+
+  test("array is not empty", () => {
+    expect(arr.length).toBeGreaterThan(0);
+  });
+
+  test("array is not null or undefined", () => {
+    expect(Array.isArray([1, 3, 5])).toBe(true);
+  });
+});
+
+
+
+
+//ex 2
+
+//takes arr as input
+function findEvenNos(arr) {
+  if (!arr?.length || Array.isArray(arr) == false) return [];
+  return arr.filter((item) => item % 2 === 0);
+}
+
+describe("find Even Nos in arr func", () => {
+  test("all even nos from arr", () => {
+    expect(findEvenNos([1, 2])).toEqual([2])
+  });
+
+  test("an empty arr if no even nos", () => {
+    expect(findEvenNos([1])).toEqual([])
+  });
+
+  test("an empty arr if null", () => {
+    expect(findEvenNos(null)).toEqual([])
+  });
+});

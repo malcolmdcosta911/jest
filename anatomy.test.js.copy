@@ -1,0 +1,16 @@
+const ounces = require("./anatomy");
+
+describe("my test suite", () => {
+  beforeAll(() => console.log("before all"));
+  afterAll(() => console.log("after all"));
+  beforeEach(() => console.log("before Each"));
+  afterEach(() => console.log("after Each"));
+
+  test("Test case 1", () => {
+    expect(ounces).toBe(1);
+  });
+
+  test("Test case 2", () => {
+    expect(ounces).toBe(ounces);
+  });
+});
