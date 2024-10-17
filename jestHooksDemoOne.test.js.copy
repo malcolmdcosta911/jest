@@ -1,0 +1,35 @@
+let originalArr = [];
+
+describe("test arr of objects", () => {
+  beforeAll(() => {
+    originalArr = [{ name: "Mini", age: 31 }];
+  });
+
+  afterAll(() => {
+    originalArr = [];
+  });
+
+  beforeEach(() => {
+    testArr = [...originalArr];
+  });
+
+  afterEach(() => {
+    testArr = [];
+  });
+
+  test("adding ele by push", () => {
+    let addElement = { name: "Mal", age: 28 };
+    testArr.push(addElement);
+    expect(testArr[testArr.length - 1]).toEqual(addElement);
+  });
+
+  test("remove ele by pop", () => {
+    let addElement = { name: "Mom", age: 28 };
+    testArr.unshift(addElement);
+    expect(testArr[0]).toEqual(addElement);
+  });
+
+  test("arr initial length be 0", () => {
+    expect(testArr).toHaveLength(originalArr.length);
+  });
+});
