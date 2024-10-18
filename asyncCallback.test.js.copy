@@ -1,0 +1,13 @@
+function fetchData(url, callback) {
+  setTimeout(() => callback({ name: "Malcolm", age: 28 }), 6000);
+}
+
+test("callback test without done", (done) => {
+  function callback(data) {
+     //cannot console after done
+    expect(data).toEqual({ name: "Malcolm", age: 28 });
+    //cannot console after done
+    done();
+  }
+  fetchData("url", callback);
+}, 6100); //timer always set more
