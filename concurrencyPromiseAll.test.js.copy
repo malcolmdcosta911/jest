@@ -1,0 +1,47 @@
+async function fetchConcurrentAll(arr) {
+  try {
+    const responses = await Promise.all(arr);
+    //below doesnt execute for err in Promise.all
+    const data = [];
+    for (const response of responses) {
+      const jsonRes = await response.json();
+
+      data.push(jsonRes);
+    }
+    return data;
+  } catch (err) {
+    throw err;
+    // throw new Error("Data fetch failed"); //this works too
+    // throw new Error using inside catch results in new error needed to be handled buy new try/catch
+  }
+}
+
+test("concurrent results with promises for correct values", async () => {
+  const url = "https://jsonplaceholder.typicode.com/users/";
+
+  const [res1, res2] = await fetchConcurrentAll([
+    fetch(url + "1"),
+    fetch(url + "2"),
+  ]);
+  await expect(res1).toHaveProperty("id", 1);
+  await expect(res2).toHaveProperty("id", 2);
+
+//use done() only for callback else use await expect() in await /async
+});
+
+test("concurrent results with promises on wrong url", async () => {
+  try {
+    const url = "https://jsonplaceholder.typicode.com/users/";
+
+    const [res1, res2] = await fetchConcurrentAll([
+      fetch(url + "1"),
+      fetch("132331"),
+    ]);
+    await expect(res1).toHaveProperty("id", 1);
+    await expect(res2).toHaveProperty("id", 2);
+  } catch (error) {
+    //console.log("error.message", error.message);
+    // expect(error.message).toMatch("Data fetch failed");//works too
+    expect(error.message).toMatch("Failed to parse URL from 132331");
+  }
+});

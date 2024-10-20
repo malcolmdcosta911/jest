@@ -1,0 +1,41 @@
+let resultData = {
+  userId: 1,
+  name: "malcolm",
+};
+
+async function fetchData(throwErr = false) {
+  try {
+    if (throwErr) throw new Error("error in fetching data");
+    const res = await new Promise((res) => {
+      setTimeout(() => res(JSON.stringify(resultData)), 100);
+    });
+    // const data = res.json();
+    const data = JSON.parse(res);
+    return data;
+  } catch (error) {
+    throw error;
+    // throw new Error("error in fetching data");
+  }
+}
+
+test("testing simple async await", async () => {
+  const res = await fetchData();
+  expect(res).toEqual(resultData);
+});
+
+test("testing simple async await outside expect", async () => {
+  await expect(fetchData()).resolves.toEqual(resultData);
+});
+
+//errs
+test("testing rejects async await outside expect", async () => {
+  await expect(fetchData(true)).rejects.toThrow("error in fetching data");
+});
+
+test("testing rejects async await outside expect", async () => {
+  try {
+    await fetchData(true);
+  } catch (error) {
+    expect(error.message).toMatch("error in fetching data");
+  }
+});

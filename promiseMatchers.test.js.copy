@@ -1,0 +1,30 @@
+expect.extend({
+  async toContainUser(data) {
+    //data  --> comes from expect
+    //cannot use --> function addUser()
+    //user is result awaited --> const  user  = await fetch()
+    //data initially promise
+    const user = await data;
+    if (user && user?.id == 1) {
+      return {
+        message: () => `user with id:${user.id} was found`,
+        pass: true,
+      };
+    } else {
+      return {
+        message: () => `user with id:${user.id} was not found`,
+        pass: false,
+      };
+    }
+  },
+});
+
+test("Test if user exists ", () => {
+  expect(Promise.resolve({ id: 1 })).toContainUser();
+});
+
+
+//fails
+test("Test if user doesnt exists err", async () => {
+  expect(Promise.resolve({ id: 2 })).toContainUser(); //fails
+});
