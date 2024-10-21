@@ -1,0 +1,13 @@
+let add = (a, b) => a + b;
+
+test("mock testing add func", () => {
+  let mockAdd = jest.fn();
+  mockAdd.mockReturnValue(10); //before
+  add = mockAdd;
+  const result = add(2, 3);
+  expect(mockAdd).toHaveBeenCalled();
+  //   expect(add).toHaveBeenCalled(); //wrks
+  expect(mockAdd).toHaveBeenCalledWith(2, 3);
+  //   expect(add).toHaveBeenCalledWith(2, 3); //wrks
+  expect(result).toBe(10);
+});
